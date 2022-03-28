@@ -1,14 +1,15 @@
 package com.rota.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import javax.validation.constraints.NotNull;
-
 import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.apache.commons.lang3.StringUtils;
 
 @MappedEntity
 public class Shift {
@@ -30,9 +31,9 @@ public class Shift {
     private Double break_duration_h;
 
     @NotNull
-    private Long chef;
+    private Chef chef;
 
-    public Shift(Long shift_id, LocalDate date_of, LocalTime start_time, LocalTime end_time, Double break_duration_h, Long chef) {
+    public Shift(Long shift_id, LocalDate date_of, LocalTime start_time, LocalTime end_time, Double break_duration_h, Chef chef) {
         this.shift_id = shift_id;
         this.date_of = date_of;
         this.start_time = start_time;
@@ -81,11 +82,29 @@ public class Shift {
         this.break_duration_h = break_duration_h;
     }
 
-    public Long getChef() {
+    public Chef getChef() {
         return chef;
     }
 
-    public void setChef(Long chef) {
+    public void setChef(Chef chef) {
         this.chef = chef;
+    }
+
+    @Override
+    public String toString() {
+        List<String> attributes = Arrays.asList("Shift id","Chef", "Start time", "End time", "Break duration(H)");
+        List<Object> valList = Arrays.asList(this.shift_id, (this.chef.getF_name()+" "+this.chef.getL_name()),this.start_time,this.end_time,this.break_duration_h);
+        String h_border = StringUtils.repeat("-", 35)+"\n";
+        
+        String filling = attributes.stream()
+            .map(x-> {String temp = "|  "+x+" : " + valList.get(attributes.indexOf(x)).toString();
+                        String padding = StringUtils.repeat(" ", 34-temp.length()) + "|";
+                        String rtrn = temp+padding+"\n";
+                        return rtrn;})
+            .reduce("",String::concat);
+        
+        String resy = h_border+ filling + h_border;
+        return resy;
+
     }
 }
