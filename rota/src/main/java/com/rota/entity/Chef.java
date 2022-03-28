@@ -1,6 +1,11 @@
 package com.rota.entity;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.StringUtils;
 
 import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
@@ -86,6 +91,25 @@ public class Chef {
         this.position = position;
     }
 
-
+    
+    @Override
+    public String toString() {
+        
+        List<String> attributes = Arrays.asList("chef_Id","First Name", "Last Name",  "Hourly_wage","Contact_no", "Position");
+        List<Object> valList = Arrays.asList(this.chef_id,this.f_name,this.l_name,this.h_wage,this.contact_no,this.position);
+        String h_border = StringUtils.repeat("-", 30)+"\n";
+        String filling = "";
+        attributes
+        
+        
+            .map(x-> {String temp = "|    "+x+" : " + valList.get(attributes.indexOf(x)).toString();
+                        String padding = StringUtils.repeat(" ", 29-temp.length()) + "|";
+                        String rtrn = temp+padding+"\n";
+                        return rtrn;})
+            .forEach(y -> filling.concat(y));
+        
+        String resy = h_border+"\n"+ filling + "\n"+h_border;
+        return resy;
+    }
 
 }
