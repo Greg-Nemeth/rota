@@ -1,6 +1,6 @@
 package com.rota.commands.chef;
 
-import com.rota.bean.Chef;
+import com.rota.entity.Chef;
 import com.rota.repository.ChefRepository;
 import jakarta.inject.Inject;
 import java.util.Arrays;
