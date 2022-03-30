@@ -3,7 +3,7 @@ micronaut:
     name: rota
 datasources:
   default:
-    url: jdbc:h2:mem:dev;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=TRUE
+    url: jdbc:h2:file:./devtest
     driverClassName: org.h2.Driver
     username: sa
     password: ''
