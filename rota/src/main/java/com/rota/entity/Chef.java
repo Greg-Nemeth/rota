@@ -4,10 +4,7 @@ import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
-import java.util.Arrays;
-import java.util.List;
 import javax.validation.constraints.NotNull;
-import org.apache.commons.lang3.StringUtils;
 
 @MappedEntity
 public class Chef {
@@ -78,23 +75,23 @@ public class Chef {
 
 
     
-    @Override
-    public String toString() {
+    // @Override
+    // public String toString() {
         
-        List<String> attributes = Arrays.asList("chef_Id","First Name", "Last Name",  "Hourly wage","Contact no");
-        List<Object> valList = Arrays.asList(this.chef_id,this.f_name,this.l_name,this.h_wage,this.contact_no);
+    //     List<String> attributes = Arrays.asList("chef_Id","First Name", "Last Name",  "Hourly wage","Contact no");
+    //     List<Object> valList = Arrays.asList(this.chef_id,this.f_name,this.l_name,this.h_wage,this.contact_no);
         
-        String h_border = StringUtils.repeat("-", 35)+"\n";
+    //     String h_border = StringUtils.repeat("-", 35)+"\n";
         
-        String filling = attributes.stream()
-            .map(x-> {String temp = "|  "+x+" : " + valList.get(attributes.indexOf(x)).toString();
-                        String padding = StringUtils.repeat(" ", 34-temp.length()) + "|";
-                        String rtrn = temp+padding+"\n";
-                        return rtrn;})
-            .reduce("",String::concat);
+    //     String filling = attributes.stream()
+    //         .map(x-> {String temp = "|  "+x+" : " + valList.get(attributes.indexOf(x)).toString();
+    //                     String padding = StringUtils.repeat(" ", 34-temp.length()) + "|";
+    //                     String rtrn = temp+padding+"\n";
+    //                     return rtrn;})
+    //         .reduce("",String::concat);
         
-        String resy = h_border+ filling + h_border;
-        return resy;
-    }
+    //     String resy = h_border+ filling + h_border;
+    //     return resy;
+    // }
 
 }
