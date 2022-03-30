@@ -32,7 +32,7 @@ public class Chef {
         this.h_wage = h_wage;
         this.contact_no = contact_no;
     }
-
+    public Chef() {}
     public Long getChef_id() {
         return chef_id;
     }

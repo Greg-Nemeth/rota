@@ -2,25 +2,26 @@ package com.rota.commands.chef;
 
 import com.rota.entity.Chef;
 import com.rota.repository.ChefRepository;
-import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
 import picocli.CommandLine.Command;
 
+@Singleton
 @Command(name = "add",
   description = "add the details of a chef to the system",
   mixinStandardHelpOptions = true)
 public class SubCommandAddChef implements Runnable {
 
     ChefRepository chefRepository;
-    Chef chef;
     
-    @Inject
-    public SubCommandAddChef(ChefRepository chefRepository, Chef chef) {
+    
+    
+    public SubCommandAddChef(ChefRepository chefRepository) {
         this.chefRepository = chefRepository;
-        this.chef = chef;
+        
     }
 
     
@@ -43,6 +44,7 @@ public class SubCommandAddChef implements Runnable {
     }
     @Override
     public void run() {
+        Chef chef = new Chef();
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter chef's first name: ");
         chef.setF_name(sc.next());
@@ -53,7 +55,7 @@ public class SubCommandAddChef implements Runnable {
         System.out.println("Enter chef's hourly wage :");
         chef.setH_wage(sc.nextFloat());
         Chef c1 = chefRepository.save(chef);
-        display(chef);
+        System.out.println(display(c1));
     }
     
 }
