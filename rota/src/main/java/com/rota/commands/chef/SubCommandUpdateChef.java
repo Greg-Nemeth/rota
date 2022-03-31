@@ -41,25 +41,25 @@ public class SubCommandUpdateChef implements Runnable{
         System.out.print("select option:");
         Integer opt = sc.nextInt();
         switch (opt) {
-            case 1 -> { System.out.print("Please enter new first name: ");
+            case 1 -> { System.out.print("\nPlease enter new first name: ");
                         String firstName = sc.next();
                         chef.setF_name(firstName);
                         chefRepository.update(chef);
                         System.out.println(Display.display(chef)); 
             }
-            case 2 -> { System.out.print("Please enter new last name: ");
+            case 2 -> { System.out.print("\nPlease enter new last name: ");
                         String lastName = sc.next();
                         chef.setL_name(lastName);
                         chefRepository.update(chef);
                         System.out.println(Display.display(chef));   
             }
-            case 3 -> { System.out.print("Please enter new hourly wage: ");
+            case 3 -> { System.out.print("\nPlease enter new hourly wage: ");
                         float wage = sc.nextFloat();
                         chef.setH_wage(wage);
                         chefRepository.update(chef);
                         System.out.println(Display.display(chef)); 
             }
-            case 4 -> { System.out.print("Please enter new phone number in the form +44xxxxxxxxxxxx: ");
+            case 4 -> { System.out.print("\nPlease enter new phone number in the form +44xxxxxxxxxxxx: ");
                         String phone = sc.next();
                         chef.setContact_no(phone);
                         chefRepository.update(chef);
