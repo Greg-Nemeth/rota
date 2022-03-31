@@ -40,7 +40,7 @@ public class SubCommandShowChef implements Runnable {
         else {
             Optional<Chef> chefyChef = chefRepository.findById(chef_id);
             if (chefyChef.isPresent()) {
-                Display.display(chefyChef.get());
+                System.out.println(Display.display(chefyChef.get()));
             }
             else {
                 System.out.println("No chef with such id found, try listing them with --list to get an id");
