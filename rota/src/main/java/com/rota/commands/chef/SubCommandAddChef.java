@@ -1,12 +1,12 @@
 package com.rota.commands.chef;
 
+
+import java.util.Scanner;
+
 import com.rota.entity.Chef;
 import com.rota.repository.ChefRepository;
+
 import jakarta.inject.Singleton;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import org.apache.commons.lang3.StringUtils;
 import picocli.CommandLine.Command;
 
 @Singleton
@@ -25,23 +25,8 @@ public class SubCommandAddChef implements Runnable {
     }
 
     
-    public String display(Chef chef) {
-        
-        List<String> attributes = Arrays.asList("chef_Id","First Name", "Last Name",  "Hourly wage","Contact no");
-        List<Object> valList = Arrays.asList(chef.getChef_id(),chef.getF_name(),chef.getL_name(),chef.getH_wage(),chef.getContact_no());
-        
-        String h_border = StringUtils.repeat("-", 35)+"\n";
-        
-        String filling = attributes.stream()
-            .map(x-> {String temp = "|  "+x+" : " + valList.get(attributes.indexOf(x)).toString();
-                        String padding = StringUtils.repeat(" ", 34-temp.length()) + "|";
-                        String rtrn = temp+padding+"\n";
-                        return rtrn;})
-            .reduce("",String::concat);
-        
-        String resy = h_border+ filling + h_border;
-        return resy;
-    }
+
+  
     @Override
     public void run() {
         Chef chef = new Chef();
@@ -55,7 +40,7 @@ public class SubCommandAddChef implements Runnable {
         System.out.println("Enter chef's hourly wage :");
         chef.setH_wage(sc.nextFloat());
         Chef c1 = chefRepository.save(chef);
-        System.out.println(display(c1));
+        System.out.println(Display.display(c1));
     }
     
 }
