@@ -6,7 +6,8 @@ import picocli.CommandLine.Command;
    description= "manage chefs",
    mixinStandardHelpOptions = true,
    subcommands={SubCommandAddChef.class,
-                SubCommandShowChef.class})
+                SubCommandShowChef.class,
+                SubCommandDeleteChef.class})
 public class ChefCommand implements Runnable {
    @Override
    public void run() {

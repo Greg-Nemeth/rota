@@ -2,12 +2,13 @@ package com.rota;
 
 
 import com.rota.commands.chef.ChefCommand;
+
 import io.micronaut.configuration.picocli.PicocliRunner;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @Command(name = "rota", 
-  header = {
+  header = {"\n\n\n\n\n\n\n",
    "________          ________          _________        ________ ",    
    "|\\   __  \\        |\\   __  \\        |\\___   ___\\     |\\   __  \\ ",   
    " \\ \\  \\|\\  \\       \\ \\  \\|\\  \\       \\|___ \\  \\_|     \\ \\  \\|\\  \\ ",  
@@ -16,7 +17,7 @@ import picocli.CommandLine.Option;
    "    \\ \\__\\\\ _\\        \\ \\_______\\           \\ \\__\\       \\ \\__\\ \\__\\",
    "     \\|__|\\|__|        \\|_______|            \\|__|        \\|__|\\|__|"
   },
-  description = "...",
+  description = "create rota via commandline, a simple app to manage chefs and shifts",
   mixinStandardHelpOptions = true,
    subcommands=ChefCommand.class)
 public class RotaCommand implements Runnable {
