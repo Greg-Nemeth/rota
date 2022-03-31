@@ -22,17 +22,19 @@ public class SubCommandShowChef implements Runnable {
         this.chefRepository = chefRepository;
     }
 
-    @Parameters
+    @Parameters(paramLabel="specify id of chef to show", arity="0..1")
     Long chef_id;
 
     @Option(names = {"-l", "--list"}, description = "list all chefs name and id")
     private boolean listingRequired;
 
     @Override
-    public void Run() {
+    public void run() {
         if (listingRequired) {
             Iterable<Chef> chefs = chefRepository.findAll();
+            System.out.println("\n\n\n\n\n");
             for (Chef chef : chefs) {
+                System.out.println();
                 System.out.println(chef.getChef_id()+": "+chef.getF_name()+" "+chef.getL_name());
                 System.out.println("____________________________________");
             }

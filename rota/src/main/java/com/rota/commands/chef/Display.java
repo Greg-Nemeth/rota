@@ -2,13 +2,15 @@ package com.rota.commands.chef;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+
 import com.rota.entity.Chef;
 public class Display {
     
     public static String display(Chef chef) {
         
-        List<String> attributes = Arrays.asList("chef_Id","First Name", "Last Name",  "Hourly wage","Contact no");
+        List<String> attributes = Arrays.asList("chef_Id    ","First Name ", "Last Name  ",  "Hourly wage","Contact no ");
         List<Object> valList = Arrays.asList(chef.getChef_id(),chef.getF_name(),chef.getL_name(),chef.getH_wage(),chef.getContact_no());
         
         String h_border = StringUtils.repeat("-", 35)+"\n";
@@ -20,7 +22,7 @@ public class Display {
                         return rtrn;})
             .reduce("",String::concat);
         
-        String resy = h_border+ filling + h_border;
+        String resy = "\n\n\n\n\n"+h_border+ filling + h_border;
         return resy;
     }
 }
