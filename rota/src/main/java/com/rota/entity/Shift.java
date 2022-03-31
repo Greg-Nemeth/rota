@@ -1,12 +1,14 @@
 package com.rota.entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.validation.constraints.NotNull;
+
 import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import javax.validation.constraints.NotNull;
 
 @MappedEntity
 public class Shift {
@@ -87,21 +89,5 @@ public class Shift {
         this.chef = chef;
     }
 
-    // @Override
-    // public String toString() {
-    //     List<String> attributes = Arrays.asList("Shift id","Chef", "Start time", "End time", "Break duration(H)");
-    //     List<Object> valList = Arrays.asList(this.shift_id, (this.chef.getF_name()+" "+this.chef.getL_name()),this.start_time,this.end_time,this.break_duration_h);
-    //     String h_border = StringUtils.repeat("-", 35)+"\n";
-        
-    //     String filling = attributes.stream()
-    //         .map(x-> {String temp = "|  "+x+" : " + valList.get(attributes.indexOf(x)).toString();
-    //                     String padding = StringUtils.repeat(" ", 34-temp.length()) + "|";
-    //                     String rtrn = temp+padding+"\n";
-    //                     return rtrn;})
-    //         .reduce("",String::concat);
-        
-    //     String resy = h_border+ filling + h_border;
-    //     return resy;
 
-    // }
 }
