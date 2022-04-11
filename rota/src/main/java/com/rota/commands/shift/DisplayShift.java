@@ -6,12 +6,13 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.rota.entity.Chef;
 import com.rota.entity.Shift;
 
 public class DisplayShift {
     
-    public static String display(Shift shift) {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("H:m");
+    public static String display(Shift shift, Chef chef) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
         
         List<String> attributes = Arrays.asList(
              "shift_id",
@@ -28,7 +29,7 @@ public class DisplayShift {
             shift.getStart_time().format(fmt),
             shift.getEnd_time().format(fmt),
             shift.getBreak_duration_h(),
-            shift.getChef().getF_name()+" "+shift.getChef().getL_name()
+            chef.getF_name()+" "+chef.getL_name()
             );
         
         String h_border = StringUtils.repeat("-", 35)+"\n";
