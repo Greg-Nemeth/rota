@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.rota.entity.Chef;
-public class Display {
+public class DisplayChef {
     
     public static String display(Chef chef) {
         

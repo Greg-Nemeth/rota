@@ -40,7 +40,7 @@ public class SubCommandAddChef implements Runnable {
         System.out.println("Enter chef's hourly wage :");
         chef.setH_wage(sc.nextFloat());
         Chef c1 = chefRepository.save(chef);
-        System.out.println(Display.display(c1));
+        System.out.println(DisplayChef.display(c1));
     }
     
 }

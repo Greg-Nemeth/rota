@@ -34,7 +34,7 @@ public class SubCommandUpdateChef implements Runnable{
     public void run() {
         Chef chef = chefRepository.findById(chef_id).get();
         Scanner sc = new Scanner(System.in);
-        System.out.println(Display.display(chef));
+        System.out.println(DisplayChef.display(chef));
         List<String> attributes = Arrays.asList("1: First Name", "2: Last Name",  "3: Hourly wage","4: Contact no");
         System.out.println("Which detail would you like to update? use the numbers to select an option!\n");
         attributes.forEach(System.out::println);
@@ -45,25 +45,25 @@ public class SubCommandUpdateChef implements Runnable{
                         String firstName = sc.next();
                         chef.setF_name(firstName);
                         chefRepository.update(chef);
-                        System.out.println(Display.display(chef)); 
+                        System.out.println(DisplayChef.display(chef)); 
             }
             case 2 -> { System.out.print("\nPlease enter new last name: ");
                         String lastName = sc.next();
                         chef.setL_name(lastName);
                         chefRepository.update(chef);
-                        System.out.println(Display.display(chef));   
+                        System.out.println(DisplayChef.display(chef));   
             }
             case 3 -> { System.out.print("\nPlease enter new hourly wage: ");
                         float wage = sc.nextFloat();
                         chef.setH_wage(wage);
                         chefRepository.update(chef);
-                        System.out.println(Display.display(chef)); 
+                        System.out.println(DisplayChef.display(chef)); 
             }
             case 4 -> { System.out.print("\nPlease enter new phone number in the form +44xxxxxxxxxxxx: ");
                         String phone = sc.next();
                         chef.setContact_no(phone);
                         chefRepository.update(chef);
-                        System.out.println(Display.display(chef));  
+                        System.out.println(DisplayChef.display(chef));  
             }
             default -> System.out.println("Please try again and select a valid option");
         }

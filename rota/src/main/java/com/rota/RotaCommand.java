@@ -2,6 +2,7 @@ package com.rota;
 
 
 import com.rota.commands.chef.ChefCommand;
+import com.rota.commands.shift.ShiftCommand;
 
 import io.micronaut.configuration.picocli.PicocliRunner;
 import picocli.CommandLine.Command;
@@ -19,7 +20,8 @@ import picocli.CommandLine.Option;
   },
   description = "create rota via commandline, a simple app to manage chefs and shifts",
   mixinStandardHelpOptions = true,
-   subcommands=ChefCommand.class)
+   subcommands={ChefCommand.class,
+               ShiftCommand.class})
 public class RotaCommand implements Runnable {
 
     @Option(names = {"-v", "--verbose"}, description = "...")
