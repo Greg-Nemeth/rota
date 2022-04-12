@@ -43,7 +43,7 @@ public class SubCommandAddShift implements Runnable {
         boolean addAnotherOne = true;
         Scanner sc = new Scanner(System.in);
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("eeee, dd MMM uuuu");
-        System.out.println("today is: "+showDate.getTodayDate().format(fmt));
+        System.out.println("\n\n\n\ntoday is: "+showDate.getTodayDate().format(fmt)+"\n\n\n");
         List<String> dayStringList = givenByShowDate.stream()
             .map(x -> {int indexPlusOne = givenByShowDate.indexOf(x)+1;
                        String ret = Integer.toString(indexPlusOne).concat(":  " + x.format(fmt));
