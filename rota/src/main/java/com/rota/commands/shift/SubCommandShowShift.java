@@ -3,6 +3,7 @@ package com.rota.commands.shift;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.rota.entity.Chef;
 import com.rota.entity.Shift;
@@ -38,15 +39,10 @@ public class SubCommandShowShift implements Runnable {
         this.chefRepository = chefRepository;
     }
     
-    
    
     @Override
     public void run() {
-        List<Shift> shiftList = new ArrayList<>();
-        shiftRepository.findAll().forEach(shiftList::add);
-        List<Chef> chefList = new ArrayList<>();
-        chefRepository.findAll().forEach(chefList::add);
-       
+
         if (showThisWeek) {
             List<LocalDate> thisWeek = showDate.getDaysOfThisWeek();
             System.out.println(DisplayWeek.displayWeeklyRota(thisWeek, chefList, shiftList));
@@ -56,9 +52,14 @@ public class SubCommandShowShift implements Runnable {
             System.out.println(DisplayWeek.displayWeeklyRota(nextWeek, chefList, shiftList));
         }
         else {
-            Shift shift = shiftRepository.findById(shift_id).get();
-            Chef chef = chefRepository.findById(shift.getChef()).get();
-            DisplayShift.display(shift, chef);
+            Optional<Shift> shift = shiftRepository.findById(shift_id);
+            if (shift.isPresent()) {
+            Chef chef = chefRepository.findById(shift.get().getChef()).get();
+            DisplayShift.display(shift.get(), chef);
+            }
+            else {
+                System.out.println("something went wrong");
+            }
         }
         
     }

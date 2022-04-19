@@ -8,5 +8,5 @@ import io.micronaut.data.repository.PageableRepository;
 
 @JdbcRepository(dialect = H2)
 public interface ShiftRepository extends PageableRepository<Shift, Long> {
-  
 }
+  
