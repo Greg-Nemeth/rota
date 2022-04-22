@@ -1,11 +1,9 @@
 package com.rota.commands.shift;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.rota.entity.Chef;
 import com.rota.entity.Shift;
 import com.rota.repository.ChefRepository;
 import com.rota.repository.ShiftRepository;
@@ -42,20 +40,20 @@ public class SubCommandShowShift implements Runnable {
    
     @Override
     public void run() {
-
+        
         if (showThisWeek) {
             List<LocalDate> thisWeek = showDate.getDaysOfThisWeek();
-            System.out.println(DisplayWeek.displayWeeklyRota(thisWeek, chefList, shiftList));
+            // System.out.println(DisplayWeek.displayWeeklyRota(thisWeek, chefList, shiftList));
+            shiftRepository.findAllByDateBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1)).forEach(x -> System.out.print(DisplayShift.display(x)));
         }
-        if (showNextWeek) {
-            List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
-            System.out.println(DisplayWeek.displayWeeklyRota(nextWeek, chefList, shiftList));
-        }
+        // if (showNextWeek) {
+        //     List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
+            // System.out.println(DisplayWeek.displayWeeklyRota(nextWeek, chefList, shiftList));
+        // }
         else {
             Optional<Shift> shift = shiftRepository.findById(shift_id);
             if (shift.isPresent()) {
-            Chef chef = chefRepository.findById(shift.get().getChef()).get();
-            DisplayShift.display(shift.get(), chef);
+                System.out.println(DisplayShift.display(shift.get()));
             }
             else {
                 System.out.println("something went wrong");

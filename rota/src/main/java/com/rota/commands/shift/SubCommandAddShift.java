@@ -81,11 +81,11 @@ public class SubCommandAddShift implements Runnable {
             Double breakDuration = sc.nextDouble();
 
             Shift shift = new Shift();
-            shift.setDate_of(shiftDate);
+            shift.setDateOf(shiftDate);
             shift.setStart_time(shiftEnum.startTime);
             shift.setEnd_time(shiftEnum.endTime);
             shift.setBreak_duration_h(breakDuration);
-            shift.setChef(selectedChefEnt.getChef_id());
+            shift.setChef(selectedChefEnt);
 
             Shift s1 = shiftRepository.save(shift);
             System.out.println(DisplayShift.display(s1, selectedChefEnt));

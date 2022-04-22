@@ -18,7 +18,7 @@ public class Shift {
     private Long shift_id;
 
     @NotNull
-    private LocalDate date_of;
+    private LocalDate dateOf;
 
     @NotNull
     private LocalTime start_time;
@@ -30,11 +30,11 @@ public class Shift {
     private Double break_duration_h;
 
     @NotNull
-    private Long chef;
+    private Chef chef;
 
-    public Shift(Long shift_id, LocalDate date_of, LocalTime start_time, LocalTime end_time, Double break_duration_h, Long chef) {
+    public Shift(Long shift_id, LocalDate dateOf, LocalTime start_time, LocalTime end_time, Double break_duration_h, Chef chef) {
         this.shift_id = shift_id;
-        this.date_of = date_of;
+        this.dateOf = dateOf;
         this.start_time = start_time;
         this.end_time = end_time;
         this.break_duration_h = break_duration_h;
@@ -51,12 +51,12 @@ public class Shift {
         this.shift_id = shift_id;
     }
 
-    public LocalDate getDate_of() {
-        return date_of;
+    public LocalDate getDateOf() {
+        return dateOf;
     }
 
-    public void setDate_of(LocalDate date_of) {
-        this.date_of = date_of;
+    public void setDateOf(LocalDate date_of) {
+        this.dateOf = date_of;
     }
 
     public LocalTime getStart_time() {
@@ -83,11 +83,11 @@ public class Shift {
         this.break_duration_h = break_duration_h;
     }
 
-    public Long getChef() {
+    public Chef getChef() {
         return chef;
     }
 
-    public void setChef(Long chef) {
+    public void setChef(Chef chef) {
         this.chef = chef;
     }
 
