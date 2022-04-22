@@ -49,8 +49,8 @@ public class DisplayWeek {
                 Long thisChef = chefs.get(i-1).getChef_id();
                 LocalDate thisDate = givenByShowDate.get(j-1);
                 String filling = shifts.stream()
-                                                 .filter(a -> a.getChef().equals(thisChef))
-                                                 .filter(b -> b.getDate_of().equals(thisDate))
+                                                 .filter(a -> a.getChef().getChef_id().equals(thisChef))
+                                                 .filter(b -> b.getDateOf().equals(thisDate))
                                                  .map(t -> {String result = t.getStart_time().format(fmtTime)+ " - " +t.getEnd_time().format(fmtTime);
                                                             return result;})
                                                  .toString();

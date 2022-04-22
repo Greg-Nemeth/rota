@@ -19,16 +19,6 @@ public interface ShiftRepository extends PageableRepository<Shift, Long> {
     List<Shift> findAllByDateOfBetween(LocalDate start, LocalDate finish);
     @Override
     @Join(value = "chef", type = Join.Type.FETCH)
-    Shift save(Shift entity) {
-        Shift shift = new Shift();
-        shift.setBreak_duration_h(entity.getBreak_duration_h());
-        shift.setChef(entity.getChef());
-        shift.setDateOf(entity.getDateOf());
-        shift.setEnd_time(entity.getEnd_time());
-        shift.setStart_time(entity.getStart_time());
-
-        
-        return shift;
-    }
+    Shift save(Shift entity);
 }
   

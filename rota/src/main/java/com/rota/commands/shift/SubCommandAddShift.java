@@ -88,7 +88,7 @@ public class SubCommandAddShift implements Runnable {
             shift.setChef(selectedChefEnt);
 
             Shift s1 = shiftRepository.save(shift);
-            System.out.println(DisplayShift.display(s1, selectedChefEnt));
+            System.out.println(DisplayShift.display(s1));
             
             System.out.print("Would you like to add another shift? [y/n]");
             String answer = sc.next();

@@ -44,7 +44,7 @@ public class SubCommandShowShift implements Runnable {
         if (showThisWeek) {
             List<LocalDate> thisWeek = showDate.getDaysOfThisWeek();
             // System.out.println(DisplayWeek.displayWeeklyRota(thisWeek, chefList, shiftList));
-            shiftRepository.findAllByDateBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1)).forEach(x -> System.out.print(DisplayShift.display(x)));
+            shiftRepository.findAllByDateOfBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1)).forEach(x -> System.out.print(DisplayShift.display(x)));
         }
         // if (showNextWeek) {
         //     List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
