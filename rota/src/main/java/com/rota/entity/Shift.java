@@ -11,7 +11,9 @@ import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.data.annotation.Relation;
 import io.micronaut.data.annotation.Relation.Kind;
+import io.micronaut.data.annotation.TypeDef;
 import io.micronaut.data.jdbc.annotation.JoinColumn;
+import io.micronaut.data.model.DataType;
 import jakarta.persistence.Column;
 
 @MappedEntity
@@ -27,10 +29,12 @@ public class Shift {
 
     @NotNull
     @Column(name = "start_time")
+    @TypeDef(type=DataType.STRING, converter = TimeAttributeConverter.class)
     private LocalTime startTime;
 
     @NotNull
     @Column(name = "end_time")
+    @TypeDef(type=DataType.STRING, converter = TimeAttributeConverter.class)
     private LocalTime endTime;
 
     @NotNull

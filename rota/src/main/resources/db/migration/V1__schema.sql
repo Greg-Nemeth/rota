@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS chef (
 CREATE TABLE IF NOT EXISTS shift (
     shift_id IDENTITY NOT NULL PRIMARY KEY,
     date_of DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
+    start_time VARCHAR(12) NOT NULL,
+    end_time VARCHAR(12) NOT NULL,
     break_duration_h NUMERIC(3,2),
     chef_id BIGINT NOT NULL,
 
