@@ -55,7 +55,7 @@ public class Shift {
         this.breakDurationInHours = breakDurationInHours;
         this.chef = chef;
     }
-    
+        
     public Shift() {}
     
     public Long getShift_id() {

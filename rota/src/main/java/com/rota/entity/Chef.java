@@ -7,6 +7,7 @@ import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
 
+
 @MappedEntity
 public class Chef {
 
@@ -25,7 +26,7 @@ public class Chef {
 
     @NotNull
     private String contact_no; //format +447...
-
+   
     public Chef(Long chef_id, String f_name, String l_name, Float h_wage, String contact_no) {
         this.chef_id = chef_id;
         this.f_name = f_name;
