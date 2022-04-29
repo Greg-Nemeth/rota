@@ -49,9 +49,9 @@ public class DisplayWeek {
                 Long thisChef = chefs.get(i-1).getChef_id();
                 LocalDate thisDate = givenByShowDate.get(j-1);
                 String filling = shifts.stream()
-                                                 .filter(a -> a.getChef().equals(thisChef))
-                                                 .filter(b -> b.getDate_of().equals(thisDate))
-                                                 .map(t -> {String result = t.getStart_time().format(fmtTime)+ " - " +t.getEnd_time().format(fmtTime);
+                                                 .filter(a -> a.getChef().getChef_id().equals(thisChef))
+                                                 .filter(b -> b.getDateOf().equals(thisDate))
+                                                 .map(t -> {String result = t.getStartTime().format(fmtTime)+ " - " +t.getEndTime().format(fmtTime);
                                                             return result;})
                                                  .toString();
                 matrixRota.get(i).add(j, filling);

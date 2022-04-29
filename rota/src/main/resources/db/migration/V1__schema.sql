@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS shift (
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     break_duration_h NUMERIC(3,2),
-    chef BIGINT NOT NULL,
+    chef_id BIGINT NOT NULL,
 
-    CONSTRAINT FK_SHIFT_CHEF FOREIGN KEY (chef) REFERENCES chef (chef_id)
+    CONSTRAINT FK_SHIFT_CHEF FOREIGN KEY (chef_id) REFERENCES chef(chef_id)
 );
