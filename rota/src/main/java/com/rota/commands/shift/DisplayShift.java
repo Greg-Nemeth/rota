@@ -25,9 +25,9 @@ public class DisplayShift {
         List<Object> valList = Arrays.asList(
             shift.getShift_id(),
             shift.getDateOf(),
-            shift.getStart_time().format(fmt),
-            shift.getEnd_time().format(fmt),
-            shift.getBreak_duration_h(),
+            shift.getStartTime().format(fmt),
+            shift.getEndTime().format(fmt),
+            shift.getBreakDurationInHours(),
             shift.getChef().getF_name()+" "+shift.getChef().getL_name()
             );
         

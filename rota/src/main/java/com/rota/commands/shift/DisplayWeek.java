@@ -51,7 +51,7 @@ public class DisplayWeek {
                 String filling = shifts.stream()
                                                  .filter(a -> a.getChef().getChef_id().equals(thisChef))
                                                  .filter(b -> b.getDateOf().equals(thisDate))
-                                                 .map(t -> {String result = t.getStart_time().format(fmtTime)+ " - " +t.getEnd_time().format(fmtTime);
+                                                 .map(t -> {String result = t.getStartTime().format(fmtTime)+ " - " +t.getEndTime().format(fmtTime);
                                                             return result;})
                                                  .toString();
                 matrixRota.get(i).add(j, filling);

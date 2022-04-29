@@ -1,43 +1,25 @@
-package com.rota.entity;
+package com.rota.dao;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.validation.constraints.NotNull;
+import com.rota.entity.Chef;
 
-import io.micronaut.data.annotation.GeneratedValue;
-import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
-import io.micronaut.data.annotation.Id;
-import io.micronaut.data.annotation.MappedEntity;
-import jakarta.persistence.Column;
+public class ShiftDAO {
 
-@MappedEntity
-public class Shift {
-
-    @Id
-    @GeneratedValue(AUTO)
     private Long shift_id;
 
-    @NotNull
-    @Column(name = "date_of")
     private LocalDate dateOf;
 
-    @NotNull
-    @Column(name = "start_time")
     private LocalTime startTime;
 
-    @NotNull
-    @Column(name = "end_time")
     private LocalTime endTime;
 
-    @NotNull
-    @Column(name = "break_duration_h")
     private Double breakDurationInHours;
 
-    @NotNull
     private Chef chef;
 
-    public Shift(Long shift_id, LocalDate dateOf, LocalTime startTime, LocalTime endTime, Double breakDurationInHours, Chef chef) {
+    public ShiftDAO (Long shift_id, LocalDate dateOf, LocalTime startTime, LocalTime endTime, Double breakDurationInHours, Chef chef) {
         this.shift_id = shift_id;
         this.dateOf = dateOf;
         this.startTime = startTime;
@@ -46,7 +28,7 @@ public class Shift {
         this.chef = chef;
     }
     
-    public Shift() {}
+    public ShiftDAO() {}
     
     public Long getShift_id() {
         return shift_id;
