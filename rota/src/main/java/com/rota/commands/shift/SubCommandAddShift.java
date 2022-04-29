@@ -87,7 +87,7 @@ public class SubCommandAddShift implements Runnable {
             shift.setBreakDurationInHours(breakDuration);
             shift.setChef(selectedChefEnt);
 
-            shiftRepository.insertNativeOne(shift);
+            shiftRepository.save(shift);
             System.out.println(DisplayShift.display(shift));
             
             System.out.print("Would you like to add another shift? [y/n]");

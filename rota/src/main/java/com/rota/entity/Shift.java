@@ -9,6 +9,9 @@ import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.data.annotation.Relation;
+import io.micronaut.data.annotation.Relation.Kind;
+import io.micronaut.data.jdbc.annotation.JoinColumn;
 import jakarta.persistence.Column;
 
 @MappedEntity
@@ -35,6 +38,9 @@ public class Shift {
     private Double breakDurationInHours;
 
     @NotNull
+    @Column(name= "chef_id")
+    @Relation(value=Kind.MANY_TO_ONE)
+    @JoinColumn(referencedColumnName="chef")
     private Chef chef;
 
     public Shift(Long shift_id, LocalDate dateOf, LocalTime startTime, LocalTime endTime, Double breakDurationInHours, Chef chef) {
