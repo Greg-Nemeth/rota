@@ -51,14 +51,11 @@ public class SubCommandShowShift implements Runnable {
             // System.out.println(DisplayWeek.displayWeeklyRota(nextWeek, chefList, shiftList));
         // }
         else {
-            Optional<Shift> shift = shiftRepository.findById(shift_id);
-            if (shift.isPresent()) {
-                System.out.println(DisplayShift.display(shift.get()));
+            Optional<Shift> shift = shiftRepository.findById(shift_id); 
+            shift.ifPresentOrElse(
+                (value) -> System.out.println(DisplayShift.display(value)),
+                () -> System.out.println("something went wrong"));
             }
-            else {
-                System.out.println("something went wrong");
-            }
-        }
         
     }
     
