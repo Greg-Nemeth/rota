@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.inject.Singleton;
 
+@Singleton
 public class ShowDate {
 
     private final LocalDate todayDate;

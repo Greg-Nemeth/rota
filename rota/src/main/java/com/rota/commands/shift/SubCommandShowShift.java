@@ -8,6 +8,7 @@ import com.rota.entity.Shift;
 import com.rota.repository.ChefRepository;
 import com.rota.repository.ShiftRepository;
 
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -30,7 +31,7 @@ public class SubCommandShowShift implements Runnable {
     
     ShiftRepository shiftRepository;
     ChefRepository chefRepository;
-    ShowDate showDate;
+    @Inject ShowDate showDate;
     
     public SubCommandShowShift(ShiftRepository shiftRepository, ChefRepository chefRepository) {
         this.shiftRepository = shiftRepository;
@@ -43,8 +44,7 @@ public class SubCommandShowShift implements Runnable {
         
         if (showThisWeek) {
             List<LocalDate> thisWeek = showDate.getDaysOfThisWeek();
-            // System.out.println(DisplayWeek.displayWeeklyRota(thisWeek, chefList, shiftList));
-            // shiftRepository.findAllByDateOfBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1)).forEach(x -> System.out.print(DisplayShift.display(x)));
+            shiftRepository.findAllByDateOfBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1)).forEach(x -> System.out.print(DisplayShift.display(x)));
         }
         // if (showNextWeek) {
         //     List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
