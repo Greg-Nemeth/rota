@@ -30,7 +30,7 @@ public class SubCommandShowShift implements Runnable {
     
     ShiftRepository shiftRepository;
     @Inject ShowDate showDate;
-    
+
     public SubCommandShowShift(ShiftRepository shiftRepository) {
         this.shiftRepository = shiftRepository;
     }
@@ -45,11 +45,13 @@ public class SubCommandShowShift implements Runnable {
             List<String> lines = DisplayWeek.displayWeeklyRota(shifts, thisWeek);
             lines.forEach(System.out::println);            
         }
-        if (showNextWeek) {
+
+        else if (showNextWeek) {
             List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
             List<Shift> shifts = shiftRepository.findAllByDateOfBetween(nextWeek.get(0), nextWeek.get(nextWeek.size()-1));
             List<String> lines = DisplayWeek.displayWeeklyRota(shifts, nextWeek);
-            lines.forEach(System.out::println);
+            lines.forEach(System.out::println);  
+
         }
         else {
             
