@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.rota.entity.Shift;
+import com.rota.freemarker.FreeMarkerConfig;
 import com.rota.repository.ChefRepository;
 import com.rota.repository.ShiftRepository;
 
@@ -32,6 +33,7 @@ public class SubCommandShowShift implements Runnable {
     ShiftRepository shiftRepository;
     ChefRepository chefRepository;
     @Inject ShowDate showDate;
+    @Inject FreeMarkerConfig freeMarkerConfig;
     
     public SubCommandShowShift(ShiftRepository shiftRepository, ChefRepository chefRepository) {
         this.shiftRepository = shiftRepository;
@@ -44,7 +46,9 @@ public class SubCommandShowShift implements Runnable {
         
         if (showThisWeek) {
             List<LocalDate> thisWeek = showDate.getDaysOfThisWeek();
-            shiftRepository.findAllByDateOfBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1)).forEach(x -> System.out.print(DisplayShift.display(x)));
+            List<Shift> shifts = shiftRepository.findAllByDateOfBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1));
+            List<String> lines = DisplayWeek.displayWeeklyRota(shifts, thisWeek);
+            lines.forEach(System.out::println);            
         }
         // if (showNextWeek) {
         //     List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
