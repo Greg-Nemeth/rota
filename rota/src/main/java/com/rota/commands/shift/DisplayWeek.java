@@ -36,7 +36,7 @@ public class DisplayWeek {
 
         Map<Chef, List<Shift>> shiftsByChef = shifts.stream()
             .collect(Collectors.groupingBy(
-                Shift::getChef, Collectors.toList()
+                Shift::getChef
                 ));
 
         List<String[]> dayBoxes = new ArrayList<>(8);
@@ -46,8 +46,29 @@ public class DisplayWeek {
             .forEach(
                 i -> dayBoxes.add(i ,box(daysList.get(i-1), datesAsString.get(i-1))) 
             );
-            
         List<String> lines = boxesToLines(dayBoxes);
+
+        shiftsByChef.entrySet().forEach(e -> {
+            List<String[]> chefBox = new ArrayList<>(8);
+            chefBox.add(0, box(e.getKey().getF_name(), e.getKey().getL_name()));
+            IntStream.range(1, 8)
+                .boxed()
+                .forEach(i -> {
+                    LocalDate targetDate = week.get(i-1);
+                    e.getValue().stream()
+                        .filter(s -> s.getDateOf().equals(targetDate))
+                        .findFirst()
+                        .ifPresentOrElse(
+                            (value) -> {String timeToString = value.getStartTime().format(fmtTime)
+                                                     + " - "+ value.getEndTime().format(fmtTime);
+                                        chefBox.add(i, box(timeToString));},
+                            () -> chefBox.add(i, box("off"))
+                            );
+    
+                });
+            lines.addAll(boxesToLines(chefBox));
+        });
+        
 
         return lines;
     }
