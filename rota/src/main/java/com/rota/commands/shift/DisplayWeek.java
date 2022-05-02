@@ -3,8 +3,11 @@ package com.rota.commands.shift;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,54 +16,110 @@ import com.rota.entity.Shift;
 
 
 public class DisplayWeek {
-
-    public static String displayWeeklyRota(List<LocalDate> givenByShowDate, List<Chef> chefs, List<Shift> shifts) {
+    
+    public static List<String> displayWeeklyRota(List<Shift> shifts, List<LocalDate> week) {
         DateTimeFormatter fmtDay = DateTimeFormatter.ofPattern("eeee");
         DateTimeFormatter fmtDate = DateTimeFormatter.ofPattern("dd MMM uuuu");
         DateTimeFormatter fmtTime = DateTimeFormatter.ofPattern("HH:mm");
-        List<String> daysAsStrings = givenByShowDate.stream()
-                                                    .map(x -> x.format(fmtDay))
-                                                    .toList();
-
-        List<String> datesAsStrings = givenByShowDate.stream()
-                                                    .map(y -> y.format(fmtDate))
-                                                    .toList();
-
-        String nineteenSpacesPlusRightWall = StringUtils.repeat(" ", 19)+"|";
-        String top = StringUtils.repeat("_", 160);
-        // String emptyLineWithDeviders = "|"+StringUtils.repeat(nineteenSpacesPlusRightWall, 8);
-        // String bottom = top.replace('_', '-');
-
-        List<List<String>> matrixRota = new ArrayList<>();
-        matrixRota.add(datesAsStrings);
-        matrixRota.add(daysAsStrings);
-        
-        List<List<String>> chefRows = chefs.stream()
-                                           .map(c -> c.getF_name())
-                                           .map(n -> {List<String> indRow = new ArrayList<>(8);
-                                                      indRow.add(0, n);
-                                                      return indRow;})
-                                           .collect(Collectors.toList());
-
-        matrixRota.addAll(chefRows);
-
-        for (int i=1; i<matrixRota.size(); i++) {
-            for (int j=1; j<8;j++) {
-                Long thisChef = chefs.get(i-1).getChef_id();
-                LocalDate thisDate = givenByShowDate.get(j-1);
-                String filling = shifts.stream()
-                                                 .filter(a -> a.getChef().getChef_id().equals(thisChef))
-                                                 .filter(b -> b.getDateOf().equals(thisDate))
-                                                 .map(t -> {String result = t.getStartTime().format(fmtTime)+ " - " +t.getEndTime().format(fmtTime);
-                                                            return result;})
-                                                 .toString();
-                matrixRota.get(i).add(j, filling);
-            }
-        }
-
         
 
-        return matrixRota.toString();
+        Collections.sort(week);
 
+        List<String> datesAsString = week.stream()
+            .map(x -> x.format(fmtDate))
+            .collect(Collectors.toList());
+        List<String> daysList = week.stream()
+            .map(y -> y.format(fmtDay))
+            .collect(Collectors.toList());
+
+        String empty = " ";
+
+        Map<Chef, List<Shift>> shiftsByChef = shifts.stream()
+            .collect(Collectors.groupingBy(
+                Shift::getChef, Collectors.toList()
+                ));
+
+        List<String[]> dayBoxes = new ArrayList<>(8);
+        dayBoxes.add(0, box(empty));
+        IntStream.range(1, 8)
+            .boxed()
+            .forEach(
+                i -> dayBoxes.add(i ,box(daysList.get(i-1), datesAsString.get(i-1))) 
+            );
+            
+        List<String> lines = boxesToLines(dayBoxes);
+
+        return lines;
     }
+
+    static List<String> boxesToLines(List<String[]> boxes) {
+        List<String> lines = new ArrayList<>();
+        IntStream.range(0, 6)
+            .boxed()
+            .map(i -> {
+                String line = boxes.stream()
+                                   .map(b -> b[i])
+                                   .reduce("", String::concat);
+                return line;
+            })
+            .forEach(lines::add);
+        return lines;
+    }
+
+    static String[] box(String toBeBoxed) {
+        String eighteenSpacesPlusRightWall = StringUtils.repeat(" ", 18)+"|";
+        String top = StringUtils.repeat("_", 20);
+        String emptyLine = "|"+ eighteenSpacesPlusRightWall;
+        String bottom = top.replace('_', '-');
+        
+        int inputLength = toBeBoxed.length();
+        int halfLengthRoundedUp = inputLength + (inputLength & 1) >> 1;
+
+        String leftPadding = StringUtils.repeat(" ", 10 - halfLengthRoundedUp);
+        String rightPadding = StringUtils.repeat(" ", 18 - inputLength - leftPadding.length());
+
+        String content = "|" + leftPadding + toBeBoxed + rightPadding + "|";
+
+        String[] stringBox = {top,
+                        emptyLine,
+                        content,
+                        emptyLine,
+                        emptyLine,
+                        bottom};
+
+        return stringBox;
+    }
+
+    static String[] box(String toBeBoxed1, String tobeBoxed2) {
+        String eighteenSpacesPlusRightWall = StringUtils.repeat(" ", 18)+"|";
+        String top = StringUtils.repeat("_", 20);
+        String emptyLine = "|"+ eighteenSpacesPlusRightWall;
+        String bottom = top.replace('_', '-');
+        
+        List<String> inputList = List.of(toBeBoxed1, tobeBoxed2);
+
+        List<String> contentList = inputList.stream()
+            .map(input -> {
+                int inputLength = input.length();
+                int halfLengthRoundedUp = inputLength + (inputLength & 1) >> 1;
+
+                String leftPadding = StringUtils.repeat(" ", 10 - halfLengthRoundedUp);
+                String rightPadding = StringUtils.repeat(" ", 18 - inputLength - leftPadding.length());
+
+                String content = "|" + leftPadding + input + rightPadding + "|";
+                return content;
+                        })
+            .collect(Collectors.toList());
+
+        String[] stringBox = {top,
+                        emptyLine,
+                        contentList.get(0),
+                        contentList.get(1),
+                        emptyLine,
+                        bottom};
+
+        return stringBox;
+    }
+
+
 }
