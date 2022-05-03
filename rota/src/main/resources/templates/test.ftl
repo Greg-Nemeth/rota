@@ -1,1 +1,0 @@
-<#list weekBoxes as key, value>${key.f_name} </#list>
