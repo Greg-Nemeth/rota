@@ -51,6 +51,7 @@ public class SubCommandUpdateShift implements Runnable{
         attributes.forEach(System.out::println);
         System.out.println("select option:");
         Integer opt = sc.nextInt();
+        sc.nextLine();
         switch (opt) {
             case 1 -> { System.out.print("\nPlease enter date ['dd-MM-yyyy']: ");
                         String date = sc.next();
@@ -72,6 +73,7 @@ public class SubCommandUpdateShift implements Runnable{
             }
             case 4 -> { System.out.print("\nPlease enter new break duration: ");
                         Double breakDuration = sc.nextDouble();
+                        sc.nextLine();
                         shift.setBreakDurationInHours(breakDuration);
                         shiftRepository.update(shift);
                         System.out.println(DisplayShift.display(shift));  
@@ -83,6 +85,7 @@ public class SubCommandUpdateShift implements Runnable{
                         );
                         System.out.print("\nPlease select a new chef: ");
                         Long chef_id = sc.nextLong();
+                        sc.nextLine();
                         Chef chef = StreamSupport.stream(chefs.spliterator(), false)
                             .filter(c -> c.getChef_id().equals(chef_id))
                             .findFirst().get();

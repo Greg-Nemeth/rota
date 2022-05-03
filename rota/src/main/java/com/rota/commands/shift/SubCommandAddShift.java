@@ -63,6 +63,7 @@ public class SubCommandAddShift implements Runnable {
             dayStringList.forEach(System.out::println);
             System.out.print("\n Select a day to add a shift to it: ");
             Integer dayAnswer = sc.nextInt();
+            sc.nextLine();
             LocalDate shiftDate =  givenByShowDate.get(dayAnswer-1);
             
             for (CommonShifts c : CommonShifts.values()) {
@@ -70,15 +71,18 @@ public class SubCommandAddShift implements Runnable {
             }
             System.out.print("\nSelect a shift to assign: ");
             Integer shiftSelected = sc.nextInt();
+            sc.nextLine();
             CommonShifts shiftEnum = CommonShifts.valueOfId(shiftSelected);
             
             chefDisplay.forEach(System.out::println);
             System.out.print("\nSelect a chef to assign this shift to: ");
             Integer chefSelected = sc.nextInt();
+            sc.nextLine();
             Chef selectedChefEnt = chef.get(chefSelected-1);
 
             System.out.print("\nBreak length forecast for this shift [in hours e.g. 0.5]: ");
             Double breakDuration = sc.nextDouble();
+            sc.nextLine();
 
             Shift shift = new Shift();
             shift.setDateOf(shiftDate);

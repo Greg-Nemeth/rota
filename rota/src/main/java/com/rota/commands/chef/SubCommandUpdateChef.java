@@ -40,6 +40,7 @@ public class SubCommandUpdateChef implements Runnable{
         attributes.forEach(System.out::println);
         System.out.print("select option:");
         Integer opt = sc.nextInt();
+        sc.nextLine();
         switch (opt) {
             case 1 -> { System.out.print("\nPlease enter new first name: ");
                         String firstName = sc.next();
