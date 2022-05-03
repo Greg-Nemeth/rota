@@ -3,7 +3,7 @@ micronaut:
     name: rota
 datasources:
   default:
-    url: jdbc:h2:file:./devtest
+    url: jdbc:h2:file:~/.config/rota/rotaDB
     driverClassName: org.h2.Driver
     username: sa
     password: ''
