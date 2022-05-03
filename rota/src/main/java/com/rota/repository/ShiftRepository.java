@@ -26,5 +26,10 @@ public interface ShiftRepository extends CrudRepository<Shift, Long> {
    @Join(value = "chef", type=Type.FETCH)
    @Query("SELECT shift_.`shift_id`,shift_.`date_of`,shift_.`start_time`,shift_.`end_time`,shift_.`break_duration_h`,shift_.`chef_id`,shift_chef_.`f_name` AS chef_f_name,shift_chef_.`l_name` AS chef_l_name,shift_chef_.`h_wage` AS chef_h_wage,shift_chef_.`contact_no` AS chef_contact_no FROM `shift` shift_ INNER JOIN `chef` shift_chef_ ON shift_.`chef_id`=shift_chef_.`chef_id` WHERE (shift_.`date_of` >= :startDate AND shift_.`date_of` <= :endDate)")
    List<Shift> findAllByDateOfBetween(LocalDate startDate, LocalDate endDate);
+
+   @Transactional
+   @Join(value = "chef", type=Type.FETCH)
+   @Query("SELECT shift_.`shift_id`,shift_.`date_of`,shift_.`start_time`,shift_.`end_time`,shift_.`break_duration_h`,shift_.`chef_id`,shift_chef_.`f_name` AS chef_f_name,shift_chef_.`l_name` AS chef_l_name,shift_chef_.`h_wage` AS chef_h_wage,shift_chef_.`contact_no` AS chef_contact_no FROM `shift` shift_ INNER JOIN `chef` shift_chef_ ON shift_.`chef_id`=shift_chef_.`chef_id` WHERE (shift_.`date_of` = :date)")
+   List<Shift> findAllByDateOf(LocalDate date);
 }
   

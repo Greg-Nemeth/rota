@@ -1,8 +1,10 @@
 package com.rota.commands.shift;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.rota.entity.Shift;
 import com.rota.repository.ShiftRepository;
@@ -27,6 +29,9 @@ public class SubCommandShowShift implements Runnable {
 
     @Option(names = {"-n","--next-week"}, description = "Show next week's shifts")
     private boolean showNextWeek;
+
+    @Option(names = {"-d", "--day"}, description = "Specify a day to show all shift scheduled on that day")
+    private String day;
     
     ShiftRepository shiftRepository;
     @Inject ShowDate showDate;
@@ -51,7 +56,13 @@ public class SubCommandShowShift implements Runnable {
             List<Shift> shifts = shiftRepository.findAllByDateOfBetween(nextWeek.get(0), nextWeek.get(nextWeek.size()-1));
             List<String> lines = DisplayWeek.displayWeeklyRota(shifts, nextWeek);
             lines.forEach(System.out::println);  
-
+        }
+        else if (day!=null) {
+            DateTimeFormatter fmtDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate chosenDate = LocalDate.parse(day, fmtDate);
+            List<Shift> shifts = shiftRepository.findAllByDateOf(chosenDate);
+            List<String[]> arrays = shifts.stream().map(DisplayShift::createArrays).collect(Collectors.toList());
+            DisplayShift.shiftsToLines(arrays).forEach(System.out::println);
         }
         else {
             

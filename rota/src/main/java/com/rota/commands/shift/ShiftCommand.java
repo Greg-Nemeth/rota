@@ -8,8 +8,8 @@ import picocli.CommandLine.Command;
    mixinStandardHelpOptions = true,
    subcommands={SubCommandAddShift.class,
                 SubCommandShowShift.class,
-                /*SubCommandDeleteShift.class,
-                SubCommandUpdateShift.class*/})
+                SubCommandDeleteShift.class,
+                /*SubCommandUpdateShift.class*/})
 public class ShiftCommand implements Runnable {
    @Override
    public void run() {

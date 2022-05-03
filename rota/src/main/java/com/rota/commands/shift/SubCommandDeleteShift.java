@@ -29,6 +29,7 @@ public class SubCommandDeleteShift implements Runnable {
 
         Scanner sc = new Scanner(System.in);
         Shift shift = shiftRepository.findById(shift_id).get();
+        System.out.println(DisplayShift.display(shift));
         String shiftInfo = shift.getDateOf()+" "+shift.getStartTime()+"-"+shift.getEndTime()+" "+shift.getChef().getF_name();
         System.out.println("Are you sure you want to delete "+shiftInfo+" from the system?  [y/n]");
         String answer = sc.next();
