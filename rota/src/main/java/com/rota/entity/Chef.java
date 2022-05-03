@@ -1,16 +1,14 @@
 package com.rota.entity;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.StringUtils;
 
 import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+
 
 @MappedEntity
 public class Chef {
@@ -30,19 +28,15 @@ public class Chef {
 
     @NotNull
     private String contact_no; //format +447...
-
-    @NotNull
-    private Long position;
-
-    public Chef(Long chef_id, String f_name, String l_name, Float h_wage, String contact_no, Long position) {
+   
+    public Chef(Long chef_id, String f_name, String l_name, Float h_wage, String contact_no) {
         this.chef_id = chef_id;
         this.f_name = f_name;
         this.l_name = l_name;
         this.h_wage = h_wage;
         this.contact_no = contact_no;
-        this.position = position;
     }
-
+    public Chef() {}
     public Long getChef_id() {
         return chef_id;
     }
@@ -83,33 +77,28 @@ public class Chef {
         this.contact_no = contact_no;
     }
 
-    public Long getPosition() {
-        return position;
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.chef_id);
+        return hash;
     }
 
-    public void setPosition(Long position) {
-        this.position = position;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Chef other = (Chef) obj;
+        return Objects.equals(this.chef_id, other.chef_id);
     }
 
     
-    @Override
-    public String toString() {
-        
-        List<String> attributes = Arrays.asList("chef_Id","First Name", "Last Name",  "Hourly_wage","Contact_no", "Position");
-        List<Object> valList = Arrays.asList(this.chef_id,this.f_name,this.l_name,this.h_wage,this.contact_no,this.position);
-        String h_border = StringUtils.repeat("-", 30)+"\n";
-        String filling = "";
-        attributes
-        
-        
-            .map(x-> {String temp = "|    "+x+" : " + valList.get(attributes.indexOf(x)).toString();
-                        String padding = StringUtils.repeat(" ", 29-temp.length()) + "|";
-                        String rtrn = temp+padding+"\n";
-                        return rtrn;})
-            .forEach(y -> filling.concat(y));
-        
-        String resy = h_border+"\n"+ filling + "\n"+h_border;
-        return resy;
-    }
-
-}
+    
+  }

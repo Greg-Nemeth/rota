@@ -1,12 +1,27 @@
 package com.rota;
-import com.rota.entity.Chef;
+
+
+import com.rota.commands.chef.ChefCommand;
+import com.rota.commands.shift.ShiftCommand;
 
 import io.micronaut.configuration.picocli.PicocliRunner;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-@Command(name = "rota", description = "...",
-        mixinStandardHelpOptions = true)
+@Command(name = "rota", 
+  header = {"\n\n\n\n\n\n\n",
+   "________          ________          _________        ________ ",    
+   "|\\   __  \\        |\\   __  \\        |\\___   ___\\     |\\   __  \\ ",   
+   " \\ \\  \\|\\  \\       \\ \\  \\|\\  \\       \\|___ \\  \\_|     \\ \\  \\|\\  \\ ",  
+   "  \\ \\   _  _\\       \\ \\  \\\\\\  \\           \\ \\  \\       \\ \\   __  \\  ",
+   "   \\ \\  \\\\  \\|       \\ \\  \\\\\\  \\           \\ \\  \\       \\ \\  \\ \\  \\ ",
+   "    \\ \\__\\\\ _\\        \\ \\_______\\           \\ \\__\\       \\ \\__\\ \\__\\",
+   "     \\|__|\\|__|        \\|_______|            \\|__|        \\|__|\\|__|"
+  },
+  description = "create rota via commandline, a simple app to manage chefs and shifts",
+  mixinStandardHelpOptions = true,
+   subcommands={ChefCommand.class,
+               ShiftCommand.class})
 public class RotaCommand implements Runnable {
 
     @Option(names = {"-v", "--verbose"}, description = "...")
@@ -16,12 +31,12 @@ public class RotaCommand implements Runnable {
         PicocliRunner.run(RotaCommand.class, args);
     }
 
+    @Override
     public void run() {
         // business logic here
-        Chef c1 = new Chef(1l, "vik", "faszfej:)",10.5f,"84839220", 1l);
-        System.out.println(c1);
         if (verbose) {
             System.out.println("Hi!");
         }
+        
     }
 }

@@ -9,6 +9,12 @@ import io.micronaut.data.annotation.GeneratedValue;
 import static io.micronaut.data.annotation.GeneratedValue.Type.AUTO;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.data.annotation.Relation;
+import io.micronaut.data.annotation.Relation.Kind;
+import io.micronaut.data.annotation.TypeDef;
+import io.micronaut.data.jdbc.annotation.JoinColumn;
+import io.micronaut.data.model.DataType;
+import jakarta.persistence.Column;
 
 @MappedEntity
 public class Shift {
@@ -18,29 +24,40 @@ public class Shift {
     private Long shift_id;
 
     @NotNull
-    private LocalDate date_of;
+    @Column(name = "date_of")
+    private LocalDate dateOf;
 
     @NotNull
-    private LocalTime start_time;
+    @Column(name = "start_time")
+    @TypeDef(type=DataType.STRING, converter = TimeAttributeConverter.class)
+    private LocalTime startTime;
 
     @NotNull
-    private LocalTime end_time;
+    @Column(name = "end_time")
+    @TypeDef(type=DataType.STRING, converter = TimeAttributeConverter.class)
+    private LocalTime endTime;
 
     @NotNull
-    private Double break_duration_h;
+    @Column(name = "break_duration_h")
+    private Double breakDurationInHours;
 
     @NotNull
-    private Long chef;
+    @Column(name= "chef_id")
+    @Relation(value=Kind.MANY_TO_ONE)
+    @JoinColumn(referencedColumnName="chef")
+    private Chef chef;
 
-    public Shift(Long shift_id, LocalDate date_of, LocalTime start_time, LocalTime end_time, Double break_duration_h, Long chef) {
+    public Shift(Long shift_id, LocalDate dateOf, LocalTime startTime, LocalTime endTime, Double breakDurationInHours, Chef chef) {
         this.shift_id = shift_id;
-        this.date_of = date_of;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.break_duration_h = break_duration_h;
+        this.dateOf = dateOf;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.breakDurationInHours = breakDurationInHours;
         this.chef = chef;
     }
-
+        
+    public Shift() {}
+    
     public Long getShift_id() {
         return shift_id;
     }
@@ -49,43 +66,45 @@ public class Shift {
         this.shift_id = shift_id;
     }
 
-    public LocalDate getDate_of() {
-        return date_of;
+    public LocalDate getDateOf() {
+        return dateOf;
     }
 
-    public void setDate_of(LocalDate date_of) {
-        this.date_of = date_of;
+    public void setDateOf(LocalDate dateOf) {
+        this.dateOf = dateOf;
     }
 
-    public LocalTime getStart_time() {
-        return start_time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(LocalTime start_time) {
-        this.start_time = start_time;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalTime getEnd_time() {
-        return end_time;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(LocalTime end_time) {
-        this.end_time = end_time;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
-    public Double getBreak_duration_h() {
-        return break_duration_h;
+    public Double getBreakDurationInHours() {
+        return breakDurationInHours;
     }
 
-    public void setBreak_duration_h(Double break_duration_h) {
-        this.break_duration_h = break_duration_h;
+    public void setBreakDurationInHours(Double breakDurationInHours) {
+        this.breakDurationInHours = breakDurationInHours;
     }
 
-    public Long getChef() {
+    public Chef getChef() {
         return chef;
     }
 
-    public void setChef(Long chef) {
+    public void setChef(Chef chef) {
         this.chef = chef;
     }
+
+
 }

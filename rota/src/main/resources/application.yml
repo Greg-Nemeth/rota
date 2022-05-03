@@ -3,13 +3,14 @@ micronaut:
     name: rota
 datasources:
   default:
-    url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:~/.config/rota/rotaDB
     driverClassName: org.h2.Driver
     username: sa
     password: ''
-    schema-generate: CREATE_DROP
+    schema-generate: NONE
     dialect: H2
-# flyway:
-#   datasources:
-#     default:
-#       enabled: true 
+flyway:
+  datasources:
+    default:
+      enabled: true 
+

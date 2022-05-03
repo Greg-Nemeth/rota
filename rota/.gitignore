@@ -1,4 +1,5 @@
-Thumbs.db
+*.db
+*.*.db
 .DS_Store
 .gradle
 build/
