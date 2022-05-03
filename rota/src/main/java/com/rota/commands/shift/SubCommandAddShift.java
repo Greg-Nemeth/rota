@@ -61,28 +61,24 @@ public class SubCommandAddShift implements Runnable {
         
         while (addAnotherOne) {
             dayStringList.forEach(System.out::println);
-            System.out.print("\n Select a day to add a shift to it: ");
+            System.out.println("\n Select a day to add a shift to it: ");
             Integer dayAnswer = sc.nextInt();
-            sc.nextLine();
             LocalDate shiftDate =  givenByShowDate.get(dayAnswer-1);
             
             for (CommonShifts c : CommonShifts.values()) {
                 System.out.println(c.iD + ": "+c.label);
             }
-            System.out.print("\nSelect a shift to assign: ");
+            System.out.println("\nSelect a shift to assign: ");
             Integer shiftSelected = sc.nextInt();
-            sc.nextLine();
             CommonShifts shiftEnum = CommonShifts.valueOfId(shiftSelected);
             
             chefDisplay.forEach(System.out::println);
-            System.out.print("\nSelect a chef to assign this shift to: ");
+            System.out.println("\nSelect a chef to assign this shift to: ");
             Integer chefSelected = sc.nextInt();
-            sc.nextLine();
             Chef selectedChefEnt = chef.get(chefSelected-1);
 
-            System.out.print("\nBreak length forecast for this shift [in hours e.g. 0.5]: ");
+            System.out.println("\nBreak length forecast for this shift [in hours e.g. 0.5]: ");
             Double breakDuration = sc.nextDouble();
-            sc.nextLine();
 
             Shift shift = new Shift();
             shift.setDateOf(shiftDate);
@@ -94,7 +90,7 @@ public class SubCommandAddShift implements Runnable {
             shiftRepository.save(shift);
             System.out.println(DisplayShift.display(shift));
             
-            System.out.print("Would you like to add another shift? [y/n]");
+            System.out.println("Would you like to add another shift? [y/n]");
             String answer = sc.next();
             switch (answer) {
                 case "y" -> {

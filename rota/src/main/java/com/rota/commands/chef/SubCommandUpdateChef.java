@@ -38,29 +38,29 @@ public class SubCommandUpdateChef implements Runnable{
         List<String> attributes = Arrays.asList("1: First Name", "2: Last Name",  "3: Hourly wage","4: Contact no");
         System.out.println("Which detail would you like to update? use the numbers to select an option!\n");
         attributes.forEach(System.out::println);
-        System.out.print("select option:");
-        Integer opt = sc.nextInt();
-        sc.nextLine();
+        System.out.println("select option:");
+        Integer opt = Integer.valueOf(sc.next());
+        
         switch (opt) {
-            case 1 -> { System.out.print("\nPlease enter new first name: ");
+            case 1 -> { System.out.println("\nPlease enter new first name: ");
                         String firstName = sc.next();
                         chef.setF_name(firstName);
                         chefRepository.update(chef);
                         System.out.println(DisplayChef.display(chef)); 
             }
-            case 2 -> { System.out.print("\nPlease enter new last name: ");
+            case 2 -> { System.out.println("\nPlease enter new last name: ");
                         String lastName = sc.next();
                         chef.setL_name(lastName);
                         chefRepository.update(chef);
                         System.out.println(DisplayChef.display(chef));   
             }
-            case 3 -> { System.out.print("\nPlease enter new hourly wage: ");
+            case 3 -> { System.out.println("\nPlease enter new hourly wage: ");
                         float wage = sc.nextFloat();
                         chef.setH_wage(wage);
                         chefRepository.update(chef);
                         System.out.println(DisplayChef.display(chef)); 
             }
-            case 4 -> { System.out.print("\nPlease enter new phone number in the form +44xxxxxxxxxxxx: ");
+            case 4 -> { System.out.println("\nPlease enter new phone number in the form +44xxxxxxxxxxxx: ");
                         String phone = sc.next();
                         chef.setContact_no(phone);
                         chefRepository.update(chef);

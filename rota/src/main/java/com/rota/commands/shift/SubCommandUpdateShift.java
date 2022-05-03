@@ -50,42 +50,37 @@ public class SubCommandUpdateShift implements Runnable{
         System.out.println("Which detail would you like to update? use the numbers to select an option!\n");
         attributes.forEach(System.out::println);
         System.out.println("select option:");
-        Integer opt = sc.nextInt();
-        sc.nextLine();
-        switch (opt) {
-            case 1 -> { System.out.print("\nPlease enter date ['dd-MM-yyyy']: ");
-                        String date = sc.next();
-                        shift.setDateOf(LocalDate.parse(date, fmtDate));
+        
+        
+        switch (Integer.valueOf(sc.next())) {
+            case 1 -> { System.out.println("\nPlease enter date ['dd-MM-yyyy']: ");
+                        
+                        shift.setDateOf(LocalDate.parse(sc.next(), fmtDate));
                         shiftRepository.update(shift);
                         System.out.println(DisplayShift.display(shift)); 
             }
-            case 2 -> { System.out.print("\nPlease enter new start time ['HH:mm']: ");
-                        String startTime = sc.next();
-                        shift.setStartTime(LocalTime.parse(startTime, fmtTime));
+            case 2 -> { System.out.println("\nPlease enter new start time ['HH:mm']: ");
+                        shift.setStartTime(LocalTime.parse(sc.next(), fmtTime));
                         shiftRepository.update(shift);
                         System.out.println(DisplayShift.display(shift));   
             }
-            case 3 -> { System.out.print("\nPlease enter new finishing time ['HH:mm']: ");
-                        String endTime = sc.next();
-                        shift.setStartTime(LocalTime.parse(endTime, fmtTime));
+            case 3 -> { System.out.println("\nPlease enter new finishing time ['HH:mm']: ");
+                        shift.setStartTime(LocalTime.parse(sc.next(), fmtTime));
                         shiftRepository.update(shift);
                         System.out.println(DisplayShift.display(shift)); 
             }
-            case 4 -> { System.out.print("\nPlease enter new break duration: ");
-                        Double breakDuration = sc.nextDouble();
-                        sc.nextLine();
-                        shift.setBreakDurationInHours(breakDuration);
+            case 4 -> { System.out.println("\nPlease enter new break duration: ");
+                        shift.setBreakDurationInHours(Double.valueOf(sc.next()));
                         shiftRepository.update(shift);
                         System.out.println(DisplayShift.display(shift));  
             }
             case 5 -> { Iterable<Chef> chefs = chefRepository.findAll();
                         chefs.forEach( c -> {
-                            System.out.println("\nid :"+c.getChef_id()+"\t"+c.getF_name()+" "+c.getL_name());
+                            System.out.println("\nid: "+c.getChef_id()+"\t"+c.getF_name()+" "+c.getL_name());
                         }
                         );
-                        System.out.print("\nPlease select a new chef: ");
-                        Long chef_id = sc.nextLong();
-                        sc.nextLine();
+                        System.out.println("\nPlease select a new chef: ");
+                        long chef_id = sc.nextLong();
                         Chef chef = StreamSupport.stream(chefs.spliterator(), false)
                             .filter(c -> c.getChef_id().equals(chef_id))
                             .findFirst().get();
