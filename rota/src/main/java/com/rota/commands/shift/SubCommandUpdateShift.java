@@ -49,7 +49,7 @@ public class SubCommandUpdateShift implements Runnable{
         List<String> attributes = Arrays.asList("1: date", "2: start",  "3: finish","4: break", "5: chef");
         System.out.println("Which detail would you like to update? use the numbers to select an option!\n");
         attributes.forEach(System.out::println);
-        System.out.print("select option:");
+        System.out.println("select option:");
         Integer opt = sc.nextInt();
         switch (opt) {
             case 1 -> { System.out.print("\nPlease enter date ['dd-MM-yyyy']: ");
@@ -78,7 +78,7 @@ public class SubCommandUpdateShift implements Runnable{
             }
             case 5 -> { Iterable<Chef> chefs = chefRepository.findAll();
                         chefs.forEach( c -> {
-                            System.out.println("id :"+c.getChef_id()+"\t"+c.getF_name()+" "+c.getL_name());
+                            System.out.println("\nid :"+c.getChef_id()+"\t"+c.getF_name()+" "+c.getL_name());
                         }
                         );
                         System.out.print("\nPlease select a new chef: ");

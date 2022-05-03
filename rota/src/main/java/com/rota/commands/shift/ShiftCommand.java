@@ -9,7 +9,7 @@ import picocli.CommandLine.Command;
    subcommands={SubCommandAddShift.class,
                 SubCommandShowShift.class,
                 SubCommandDeleteShift.class,
-                /*SubCommandUpdateShift.class*/})
+                SubCommandUpdateShift.class})
 public class ShiftCommand implements Runnable {
    @Override
    public void run() {
