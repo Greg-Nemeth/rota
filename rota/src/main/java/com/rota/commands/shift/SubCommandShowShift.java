@@ -23,6 +23,9 @@ public class SubCommandShowShift implements Runnable {
 
     @Parameters(paramLabel = "specify id of shift to show", arity="0..1")
     Long shift_id;
+    
+    @Option(names = {"-x", "--excel"}, description = "Write the weekly rota to an excel file")
+    private boolean excel;
 
     @Option(names = {"-t","--this-week"}, description = "Show this week's shifts")
     private boolean showThisWeek;
@@ -48,14 +51,20 @@ public class SubCommandShowShift implements Runnable {
             List<LocalDate> thisWeek = showDate.getDaysOfThisWeek();
             List<Shift> shifts = shiftRepository.findAllByDateOfBetween(thisWeek.get(0), thisWeek.get(thisWeek.size()-1));
             List<String> lines = DisplayWeek.displayWeeklyRota(shifts, thisWeek);
-            lines.forEach(System.out::println);            
+            lines.forEach(System.out::println);
+            if (excel) {
+                OutputWeek.writeToFile(thisWeek, shifts);
+            }            
         }
 
         else if (showNextWeek) {
             List<LocalDate> nextWeek = showDate.getDaysOfNextWeek();
             List<Shift> shifts = shiftRepository.findAllByDateOfBetween(nextWeek.get(0), nextWeek.get(nextWeek.size()-1));
             List<String> lines = DisplayWeek.displayWeeklyRota(shifts, nextWeek);
-            lines.forEach(System.out::println);  
+            lines.forEach(System.out::println);
+            if (excel) {
+                OutputWeek.writeToFile(nextWeek, shifts);
+            }
         }
         else if (day!=null) {
             DateTimeFormatter fmtDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
