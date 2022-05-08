@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -49,11 +50,17 @@ public class OutputWeek {
         XSSFSheet sheet = workbook.createSheet(week.get(0).format(fmtDate)+"-"+week.get(6).format(fmtDate));
 
         Row dates = sheet.createRow(0);
+
+        XSSFFont dateFont = workbook.createFont();
+        dateFont.setBold(true);
+        dateFont.setFontHeight(16);
+
         XSSFCellStyle dateCellStyle = workbook.createCellStyle();
         dateCellStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
         dateCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        dateCellStyle.setFont(dateFont);
         
-        range(0, 9)
+        range(0, 8)
             .forEach(
                 i -> {Cell dateCell = dates.createCell(i);
                       dateCell.setCellStyle(dateCellStyle);
@@ -71,6 +78,8 @@ public class OutputWeek {
         XSSFCellStyle cheFCellStyle = workbook.createCellStyle();
         cheFCellStyle.setFillForegroundColor(IndexedColors.CORAL.getIndex());
         cheFCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cheFCellStyle.setWrapText(true);
+    
 
         List<List<String>> content = shiftsByChef.entrySet()
             .stream()
@@ -94,7 +103,7 @@ public class OutputWeek {
                 return chefsWeek;})
                 .collect(Collectors.toList());
 
-        range(1, content.size()+1)
+        range(1, content.size())
             .forEach(i -> {
                 Row chefsRow = sheet.createRow(i);
                 range(0, 8)
@@ -108,7 +117,7 @@ public class OutputWeek {
                     });
             });
 
-        String filePath = userHome + "/Documents/Rotas";
+        String filePath = userHome + "/Documents/Rotas/"+week.get(0).format(fmtDate)+"-"+week.get(6).format(fmtDate)+".xlsx";
         FileOutputStream outputStream;
         try {
             outputStream = new FileOutputStream(filePath);
